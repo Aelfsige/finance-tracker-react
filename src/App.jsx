@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import Dashboard from './components/Dashboard'
 import Spending from './components/Spending'
 import Navbar from './components/Navbar'
@@ -5,27 +6,37 @@ import './App.css'
 import { useState } from 'react'
 
 function App() {
-  const financialStatus = [
-    {name: "Income", amount: 1500},
-    {name: "Expenses", amount: 3000},
-    {name: "Balance", amount: 5000},
-  ]
+  function Home() {
+    return (
+      <>
+        <h1>Good day, Aelfsige</h1>
+        <hr />
+        <Dashboard />
+        <Spending />
+      </>
+    )
+  }
 
-  const [page, setPage] = useState("Dashboard")
-
-  function loadPage(page)
+  function About()
   {
-    setPage(page)
+    return <h1>About</h1>
+  }
+
+  function Contact()
+  {
+    return <h1>Contact</h1>
   }
 
   return (
-    <>
-      <h1>Good day, Aelfsige</h1>
-      <hr />
-      <Dashboard items={financialStatus} />
-      <Spending />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+
       <Navbar />
-    </>
+    </BrowserRouter>
   )
 }
 

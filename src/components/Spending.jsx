@@ -29,13 +29,14 @@ function Spending()
                     'rgba(255, 159, 64, 1)',
                     'rgba(255, 64, 239, 1)',
                 ],
-                borderWidth: 1,
+                borderWidth: 2,
             }
         ]
     }
 
     return (
         <div className="spending-chart">
+            <h4>Spending by Category</h4>
             <Pie data={spendings}/>
         </div>
     )

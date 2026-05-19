@@ -1,22 +1,26 @@
+import { Link } from 'react-router-dom'
+
 function Navbar()
 {
     const navList = [
-        {icon: '🏠', name: 'Dashboard'},
-        {icon: '📜', name: 'Record'},
-        {icon: '💸', name: 'Transaction'},
-        {icon: '⚙️', name: 'Settings'},
-
+        {icon: '🏠', name: 'Dashboard', link: '/'},
+        {icon: '📜', name: 'Record', link: '/record'},
+        {icon: '💸', name: 'Transaction', link: '/transaction'},
+        {icon: '⚙️', name: 'Settings', link: '/settings'},
     ]
 
     const navItems = navList.map(item => 
-        <li>{item.icon} <p>{item.name}</p></li>
+        <Link to={item.link}>
+            {item.icon} 
+            <p>{item.name}</p>
+        </Link>
     )
 
     return (
         <nav>
-            <ul>
+            <div className="navbar">
                 {navItems}
-            </ul>
+            </div>
         </nav>
     )
 }
