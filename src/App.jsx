@@ -1,12 +1,10 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import TransactionPage from './components/TransactionPage'
-import Dashboard from './components/Dashboard'
+import DashboardPage from './components/DashboardPage'
 import RecordPage from './components/RecordPage'
 import Spending from './components/Spending'
-import Navbar from './components/Navbar'
-import Form from './components/Form'
-import './App.css'
 import { useState } from 'react'
+import './App.css'
 
 function App() {
   const navList = [
@@ -28,7 +26,7 @@ function App() {
       <>
         <h1>Good day, Aelfsige</h1>
         <hr />
-        <Dashboard />
+        <DashboardPage />
         <Spending />
       </>
     )

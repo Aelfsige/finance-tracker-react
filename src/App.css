@@ -64,6 +64,23 @@ a > p{
 
 .record{
   padding: 12px;
+  height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.record-container{
+  border: 2px solid rgba(127,0,127,1);
+  background-color: rgba(127,0,127,0.2);
+  color: purple;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.record-container h2{
+  margin: 4px 0;
 }
 
 .expenses, .income{
