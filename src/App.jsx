@@ -1,11 +1,28 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import TransactionPage from './components/TransactionPage'
 import Dashboard from './components/Dashboard'
+import RecordPage from './components/RecordPage'
 import Spending from './components/Spending'
 import Navbar from './components/Navbar'
+import Form from './components/Form'
 import './App.css'
 import { useState } from 'react'
 
 function App() {
+  const navList = [
+      {icon: '🏠', name: 'Dashboard', link: '/'},
+      {icon: '📜', name: 'Record', link: '/record'},
+      {icon: '💸', name: 'Transaction', link: '/transaction'},
+      {icon: '⚙️', name: 'Settings', link: '/settings'},
+    ]
+
+    const navItems = navList.map(item => 
+      <Link to={item.link}>
+          {item.icon} 
+          <p>{item.name}</p>
+      </Link>
+    )
+
   function Home() {
     return (
       <>
@@ -17,25 +34,29 @@ function App() {
     )
   }
 
-  function About()
+  function Record()
   {
-    return <h1>About</h1>
+    return <RecordPage />
   }
 
-  function Contact()
+  function Transaction()
   {
-    return <h1>Contact</h1>
+    return <TransactionPage />
   }
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/record" element={<Record />} />
+        <Route path="/transaction" element={<Transaction />} />
       </Routes>
 
-      <Navbar />
+      <nav>
+          <div className="navbar">
+              {navItems}
+          </div>
+      </nav>
     </BrowserRouter>
   )
 }
