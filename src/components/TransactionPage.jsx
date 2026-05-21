@@ -2,22 +2,14 @@ import React, {useState} from 'react'
 
 function Chips()
 {
-    const badges = [
-        {
-            title: 'Travel to school', 
-            category: 'Transport', 
-            date: 'May 19', 
-            amount: 100,
-            type: 'Expenses'
-        },
-        {
-            title: 'Baon from mom <3', 
-            category: 'Salary', 
-            date: 'May 19', 
-            amount: 1500,
-            type: 'Income'
-        },
-    ]
+    const badges = []
+
+    let savedTransaction = JSON.parse(localStorage.getItem('transaction'))
+
+    if (savedTransaction != null)
+    {
+        savedTransaction.forEach(item => badges.push(item))
+    }
 
     const [showItems, setShowItems] = useState(badges)
 
@@ -39,7 +31,7 @@ function Chips()
     const badgesHTML = showItems.map(badge => 
         <div className={badge.type == "Income" ? "badge income" : "badge expenses"}>
             <div className="left">
-                <p>{badge.title}</p>
+                <p>{badge.description}</p>
                 <span>{badge.category} • {badge.date}</span>
             </div>
             <div className="right">
