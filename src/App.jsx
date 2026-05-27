@@ -2,24 +2,23 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import TransactionPage from './components/TransactionPage'
 import DashboardPage from './components/DashboardPage'
 import RecordPage from './components/RecordPage'
-import Spending from './components/Spending'
+import PieChart from './components/PieChart'
 import { useState } from 'react'
 import './App.css'
 
 function App() {
   const navList = [
-      {icon: '🏠', name: 'Dashboard', link: '/'},
-      {icon: '📜', name: 'Record', link: '/record'},
-      {icon: '💸', name: 'Transaction', link: '/transaction'},
-      {icon: '⚙️', name: 'Settings', link: '/settings'},
-    ]
+    { icon: '🏠', name: 'Dashboard', link: '/' },
+    { icon: '📜', name: 'Record', link: '/record' },
+    { icon: '💸', name: 'Transaction', link: '/transaction' },
+  ]
 
-    const navItems = navList.map(item => 
-      <Link to={item.link}>
-          {item.icon} 
-          <p>{item.name}</p>
-      </Link>
-    )
+  const navItems = navList.map(item =>
+    <Link to={item.link}>
+      {item.icon}
+      <p>{item.name}</p>
+    </Link>
+  )
 
   function Home() {
     return (
@@ -27,18 +26,15 @@ function App() {
         <h1>Good day, Aelfsige</h1>
         <hr />
         <DashboardPage />
-        <Spending />
       </>
     )
   }
 
-  function Record()
-  {
+  function Record() {
     return <RecordPage />
   }
 
-  function Transaction()
-  {
+  function Transaction() {
     return <TransactionPage />
   }
 
@@ -51,9 +47,9 @@ function App() {
       </Routes>
 
       <nav>
-          <div className="navbar">
-              {navItems}
-          </div>
+        <div className="navbar">
+          {navItems}
+        </div>
       </nav>
     </BrowserRouter>
   )

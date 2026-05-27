@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 
 function Record()
 {
@@ -6,6 +6,12 @@ function Record()
     const INCOME_LABELS = ['Salary', 'Freelance', 'Other']
 
     const [LABELS, SET_LABELS] = useState(EXPENSES_LABELS)
+
+    const OPTIONS = LABELS.map(label => 
+        <option value={label}>{label}</option>
+    )
+
+	const form = useRef()
 
     function handleTypeChange(e)
     {
@@ -18,63 +24,75 @@ function Record()
         }
     }
 
-    const OPTIONS = LABELS.map(label => 
-        <option value={label}>{label}</option>
-    )
-
-    const FORM_ELEMENT = useRef()
-
-    let recordedTransaction = []
-    let savedTransaction = []
-
-    function submit_record()
-    {
-        FORM_ELEMENT.current.addEventListener('submit', e => {
+    useEffect(() => {
+        form.current.addEventListener('submit', e => {
+            // prevent refresh
             e.preventDefault()
-            let formData = new FormData(FORM_ELEMENT.current)
-            
+
+            // get data from all inputs
+            const formData = new FormData(form.current)
+
+            // send data to server
             let transaction = {}
 
-            formData.forEach((data, key) => {
-                if (key === 'amount')
-                {
-                    transaction[key] = parseFloat(data)
-                } else
-                {
-                    transaction[key] = data
-                }
-            })
+            if (formData.get('description'))
+            {
+                formData.forEach((value, key) => {
+                    if (key === 'amount')
+                    {
+                        transaction[key] = parseFloat(value)
+                    } else
+                    {
+                        transaction[key] = value
+                    }
+                })
 
-            recordedTransaction.push(transaction) // push to any array
-            
-            localStorage.setItem('transaction', JSON.stringify(recordedTransaction)) // save it and string it
-        
-            console.log(JSON.parse(localStorage.getItem('transaction')))
-        
-            FORM_ELEMENT.current.reset()
+                console.log(transaction)
+    
+                fetch('http://localhost:8080/record', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(transaction)
+                })
+                .then(res => res.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error))
+                
+                // reset all input fields
+                form.current.reset()
+    
+                // reset the type to expenses
+                SET_LABELS(EXPENSES_LABELS)
+            }
         })
-    }
+    })
 
-    savedTransaction = JSON.parse(localStorage.getItem('transaction'))
-
-    if (savedTransaction != null)
-    {
-        savedTransaction.forEach(item => recordedTransaction.push(item))
-    }
-
-    return (
+	return (
         <section className="record">
             <section className='record-container'>
                 <h2 style={{textAlign: 'center'}}>Record Transactions</h2>
-                <form action="" ref={FORM_ELEMENT}>
+                <form action="" ref={form} >
                     <label htmlFor="description">Description</label>
-                    <input type="text" name='description' id='description' placeholder="e.g. Groceries"  />
+                    <input 
+						type="text" 
+						name='description' 
+						id='description' 
+						placeholder="e.g. Groceries" 
+						required  
+					/>
 
                     <label htmlFor="amount">Amount (₱)</label>
-                    <input type="number" name="amount" id="amount" placeholder="0" min={0} step={0.01}/>
+                    <input 
+						type="number" 
+						name="amount" 
+						id="amount" 
+						placeholder="0" min={0} step={0.01} required
+					/>
 
                     <label htmlFor="date">Date</label>
-                    <input type="date" name="date" id="date" />
+                    <input type="date" name="date" id="date" required />
 
                     <label htmlFor="type">Type</label>
                     <select name="type" id="type" onChange={handleTypeChange}>
@@ -87,7 +105,7 @@ function Record()
                         {OPTIONS}
                     </select>
 
-                    <input type="submit" value="Submit" onClick={() => submit_record()} />
+                    <input type="submit" value="Submit" />
                 </form>
             </section>
         </section>

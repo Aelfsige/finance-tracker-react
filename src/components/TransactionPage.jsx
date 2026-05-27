@@ -1,42 +1,62 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 
 function Chips()
 {
-    const badges = []
+    let recordedTransactions = useRef([])
+    const [showItems, setShowItems] = useState(recordedTransactions.current)
+    const [loading, setLoading] = useState(true)
 
-    let savedTransaction = JSON.parse(localStorage.getItem('transaction'))
-
-    if (savedTransaction != null)
-    {
-        savedTransaction.forEach(item => badges.push(item))
-    }
-
-    const [showItems, setShowItems] = useState(badges)
-
+    useEffect(() => {
+        fetch('http://localhost:8080/transactions')
+            .then(res => res.json())
+            .then(data => {
+                setShowItems(data)
+                setLoading(false)
+                recordedTransactions.current = data
+            })
+    }, [])
+    
     function showAll()
     {
-        setShowItems(badges)
+        setShowItems(recordedTransactions.current)
     }
 
     function showExpenses()
     {
-        setShowItems(badges.filter(badge => badge.type === "Expenses"))
+        setShowItems(recordedTransactions.current.filter(transaction => transaction.type === "Expenses"))
     }
 
     function showIncome()
     {
-        setShowItems(badges.filter(badge => badge.type === "Income"))
+        setShowItems(recordedTransactions.current.filter(transaction => transaction.type === "Income"))
     }
-    
-    const badgesHTML = showItems.map(badge => 
-        <div className={badge.type == "Income" ? "badge income" : "badge expenses"}>
+
+    function deleteItem(id)
+    {
+		fetch('http://localhost:8080/transactions', {
+			method: 'DELETE',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify({ id })
+		})
+		.then(res => res.json())
+		.then(data => {
+			recordedTransactions.current = data
+			showAll()
+		})
+		.catch(err => console.error(err))
+	}
+
+    const badgesHTML = showItems.map(item => 
+        <div className={item.type == "Income" ? "badge income" : "badge expenses"} id={item.id}>
             <div className="left">
-                <p>{badge.description}</p>
-                <span>{badge.category} • {badge.date}</span>
+                <p>{item.description}</p>
+                <span>{item.category} • {item.date}</span>
             </div>
             <div className="right">
-                <p>₱{badge.amount}</p>
-                <button>X</button>
+                <p>₱{item.amount}</p>
+                <button onClick={() => deleteItem(item.id)}>X</button>
             </div>
         </div>
     )
@@ -49,10 +69,11 @@ function Chips()
                 <button onClick={() => showIncome()}>Income</button>
             </div>
             <div className="badges">
-                {badgesHTML}
+                {loading ? 'Loading...' : badgesHTML}
             </div>
         </>
     )
+    
 }
 
 export default Chips
