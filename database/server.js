@@ -5,19 +5,6 @@ import cors from 'cors'
 const app = express()
 const PORT = 8080
 
-// const QUERY = `
-//     CREATE TABLE transactions (
-//         id INTEGER PRIMARY KEY,
-//         description STRING NOT NULL,
-//         amount INTEGER NOT NULL,
-//         date DATE NOT NULL,
-//         type STRING NOT NULL,
-//         category STRING NOT NULL
-//     )
-// `
-// DB.exec(QUERY)
-
-
 const DB = new Database('database/transaction.db')
 
 function setRecord(record)

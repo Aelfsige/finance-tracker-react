@@ -22,7 +22,7 @@ function App() {
   function Home() {
     return (
       <>
-        <h1>Good day, Aelfsige</h1>
+        <h1>Good day!</h1>
         <hr />
         <DashboardPage />
       </>
