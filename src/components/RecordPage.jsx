@@ -2,12 +2,12 @@ import React, {useState, useRef, useEffect} from 'react'
 
 function Record()
 {
-    const EXPENSES_LABELS = ['Food', 'Transport', 'Shopping', 'Hobbies', 'Other']
-    const INCOME_LABELS = ['Salary', 'Freelance', 'Other']
+    const expensesLabels = ['Food', 'Transport', 'Shopping', 'Hobbies', 'Other']
+    const incomeLabels = ['Salary', 'Freelance', 'Other']
 
-    const [LABELS, SET_LABELS] = useState(EXPENSES_LABELS)
+    const [labels, setLabels] = useState(expensesLabels)
 
-    const OPTIONS = LABELS.map(label => 
+    const options = labels.map(label => 
         <option value={label}>{label}</option>
     )
 
@@ -17,10 +17,10 @@ function Record()
     {
         if (e.target.value === 'Income')
         {
-            SET_LABELS(INCOME_LABELS)
+            setLabels(incomeLabels)
         } else
         {
-            SET_LABELS(EXPENSES_LABELS)
+            setLabels(expensesLabels)
         }
     }
 
@@ -64,7 +64,7 @@ function Record()
                 form.current.reset()
     
                 // reset the type to expenses
-                SET_LABELS(EXPENSES_LABELS)
+                setLabels(expensesLabels)
             }
         })
     })
@@ -102,7 +102,7 @@ function Record()
 
                     <label htmlFor="category">Category</label>
                     <select name="category" id="category">
-                        {OPTIONS}
+                        {options}
                     </select>
 
                     <input type="submit" value="Submit" />

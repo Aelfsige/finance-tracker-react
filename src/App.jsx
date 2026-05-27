@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import TransactionPage from './components/TransactionPage'
 import DashboardPage from './components/DashboardPage'
 import RecordPage from './components/RecordPage'
-import PieChart from './components/PieChart'
 import { useState } from 'react'
 import './App.css'
 
