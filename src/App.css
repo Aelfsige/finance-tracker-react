@@ -1,34 +1,47 @@
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 100px;
+}
+
 .dashboard{
+  padding: 12px;
+}
+
+.overview{
   /* border: 2px solid red; */
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   gap: 4px;
-  padding: 0 12px;
 }
 
-.dashboard-item{
+.overview-item{
   background-color: #222;
   color: white;
   width: 100%;
   padding: 0 12px;
-  border: 2px solid rgba(127,0,127,1);
-  background-color: rgba(127,0,127,0.2);
-  color: purple;
+  box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  background-color: white;
+  color: black;
+  font-weight: bold;
   border-radius: 8px;
 }
 
-.spending-chart{
+.overview-item:nth-child(1), .income{
+  background-image: linear-gradient(to right, white, white, white, green);
+}
+
+.overview-item:nth-child(2), .expenses{
+  background-image: linear-gradient(to right, white, white, white, red);
+}
+
+.spending-chart, .earnings-chart{
   width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
-}
-
-h1, h4{
-  margin: 12px 0 12px 12px;
 }
 
 nav{
@@ -42,19 +55,26 @@ nav{
   justify-content: space-evenly;
   align-items: center;
   text-align: center;
-  border: 2px solid rgba(127,0,127,1);
-  background-color: rgba(127,0,127,0.2);
-  border-radius: 8px;
-  margin: 8px;
-  padding: 4px;
+  background-color: white;
+  box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  border-radius: 50px;
+  margin: 0 8px 12px 8px;
+  padding: 8px;
 }
 
 a{
   /* border: 2px solid blue; */
   font-size: 24px;
   width: 100%;
-  color: purple;
+  color: black;
   text-decoration: none;
+  padding: 8px 0 8px 0;
+}
+
+.active{
+  border-radius: 50px;
+  background-color: rgba(0,255,0,0.2);
+  color: green;
 }
 
 a > p{
@@ -64,50 +84,8 @@ a > p{
 
 .record{
   padding: 12px;
-  height: 85vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-.record-container{
-  border: 2px solid rgba(127,0,127,1);
-  background-color: rgba(127,0,127,0.2);
-  color: purple;
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 8px;
-}
-
-.record-container h2{
-  margin: 4px 0;
-}
-
-.expenses, .income{
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 8px;
-}
-
-.expenses{
-  border: 2px solid rgba(255,0,0);
-  background-color: rgba(255,0,0,0.2);
-}
-
-.expenses h2, .expenses p{
-  color: red;
-  margin: 4px 0;
-}
-
-.income{
-  border: 2px solid rgba(0,255,0);
-  background-color: rgba(0,255,0,0.2);
-}
-
-.income h2, .income p{
-  color: green;
-  margin: 4px 0;
-}
 
 form{
   display: flex;
@@ -118,34 +96,72 @@ input, select{
   margin-bottom: 12px;
   padding: 8px;
   font-size: 16px;
+  border-radius: 12px;
 }
 
-.chips{
-  padding: 8px;
-}
-
-.chips > button{
-  margin: 4px;
-  padding: 8px;
+input[type=submit]{
+  border: none;
   border-radius: 50px;
-  border: 2px solid rgba(127,0,127,1);
-  background-color: rgba(127,0,127,0.2);
-  cursor: pointer;
-  color: purple;
+  padding: 12px;
+  box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  background-color: rgba(0,255,0,0.2);
+  color: green;
+}
+
+.expenses, .income{
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 8px; 
+}
+
+.expenses h3{
+  color: darkred;
+  margin: 4px 0;
+}
+
+.income h3{
+  color: darkgreen;
+  margin: 4px 0;
+}
+
+
+.transactions{
+  padding: 12px;
+}
+
+.filters > button{
+  margin: 4px;
+  
+  border: none;
+  background-color: #222;
+  color: white;
+  padding: 12px;
+  box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  border-radius: 50px;
 }
 
 .badges{
-  padding: 8px;
-  height: 80vh;
+  padding: 12px 0;
+  height: 575px;
   overflow: auto;
 }
 
 .badge{
   display: flex;
   justify-content: space-between;
-  padding: 8px;
-  border-radius: 8px;
   margin-bottom: 8px;
+
+  background-color: #222;
+  color: white;
+  padding: 12px;
+  box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  border-radius: 8px;
 }
 
 .badge p{
@@ -164,6 +180,14 @@ input, select{
 }
 
 .badge button{
-  padding: 4px 12px;
+  border: none;
+  background-color: #222;
+  color: white;
+  padding: 12px;
+  box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border-radius: 50px;
 }
 

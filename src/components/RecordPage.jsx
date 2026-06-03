@@ -70,45 +70,43 @@ function Record()
     })
 
 	return (
-        <section className="record">
-            <section className='record-container'>
-                <h2 style={{textAlign: 'center'}}>Record Transactions</h2>
-                <form action="" ref={form} >
-                    <label htmlFor="description">Description</label>
-                    <input 
-						type="text" 
-						name='description' 
-						id='description' 
-						placeholder="e.g. Groceries" 
-						required  
-					/>
+        <div className='record'>
+            <h2>Record Transactions</h2>
+            <form ref={form} >
+                <label htmlFor="description">Description</label>
+                <input 
+                    type="text" 
+                    name='description' 
+                    id='description' 
+                    placeholder="e.g. Groceries" 
+                    required  
+                />
 
-                    <label htmlFor="amount">Amount (₱)</label>
-                    <input 
-						type="number" 
-						name="amount" 
-						id="amount" 
-						placeholder="0" min={0} step={0.01} required
-					/>
+                <label htmlFor="amount">Amount (₱)</label>
+                <input 
+                    type="number" 
+                    name="amount" 
+                    id="amount" 
+                    placeholder="0" min={0} step={0.01} required
+                />
 
-                    <label htmlFor="date">Date</label>
-                    <input type="date" name="date" id="date" required />
+                <label htmlFor="date">Date</label>
+                <input type="date" name="date" id="date" required />
 
-                    <label htmlFor="type">Type</label>
-                    <select name="type" id="type" onChange={handleTypeChange}>
-                        <option value="Expenses">Expenses</option>
-                        <option value="Income">Income</option>
-                    </select>
+                <label htmlFor="type">Type</label>
+                <select name="type" id="type" onChange={handleTypeChange}>
+                    <option value="Expenses">Expenses</option>
+                    <option value="Income">Income</option>
+                </select>
 
-                    <label htmlFor="category">Category</label>
-                    <select name="category" id="category">
-                        {options}
-                    </select>
+                <label htmlFor="category">Category</label>
+                <select name="category" id="category">
+                    {options}
+                </select>
 
-                    <input type="submit" value="Submit" />
-                </form>
-            </section>
-        </section>
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
     )
 }
 

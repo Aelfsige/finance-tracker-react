@@ -51,53 +51,37 @@ function Dashboard(props)
     const financialStatus = [
         {name: "Income", amount: totalIncome},
         {name: "Expenses", amount: totalExpenses},
-        {name: "Balance", amount: totalIncome - totalExpenses}
     ]
 
     const status = financialStatus.map(item => 
-        <div className="dashboard-item">
+        <div className="overview-item">
             <p>{item.name}</p>
             <h2 style={item.name === "Expenses" ? {color: 'red'} : {color: 'green'}}>₱{item.amount}</h2>
         </div>
     )
 
     return (
-        <div className="overview">
+        <div className="dashboard">
+            <h2>Dashboard</h2>
             <h4>Overview</h4>
-            <div className="dashboard">
+            <div className="overview">
                 {status}
             </div>
             <PieChart 
                 category={expensesCategory} 
                 label='Amount spent'
                 amount={expensesAmount}
-                backgroundColor={[
-                    'rgba(254, 183, 43, 0.2)',
-                    'rgba(255, 99, 99, 0.2)',
-                    'rgba(203, 64, 18, 0.2)',
-                ]}
-                borderColor={[
-                    'rgba(254, 183, 43, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(203, 64, 18, 1)',
-                ]}
+                backgroundColor={['#990f02', '#e3242b', '#4e0707', '#ed7014', '#fcae1e']}
                 chartTitle='Spending by category'
+                chartClass='spending-chart'
             />
             <PieChart 
                 category={incomeCategory} 
                 label='Amount earned'
                 amount={incomeAmount}
-                backgroundColor={[
-                    'rgba(96, 196, 68, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 162, 235, 0.2)',
-                ]}
-                borderColor={[
-                    'rgba(96, 196, 68, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 162, 235, 1)',
-                ]}
+                backgroundColor={['#3cb043', '#aef359', '#99edc3']}
                 chartTitle='Earnings by category'
+                chartClass='earnings-chart'
             />
         </div>
     )

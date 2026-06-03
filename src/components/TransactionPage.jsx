@@ -51,25 +51,28 @@ function Chips()
     const badgesHTML = showItems.map(item => 
         <div className={item.type == "Income" ? "badge income" : "badge expenses"} id={item.id}>
             <div className="left">
-                <p>{item.description}</p>
+                <h3>{item.description}</h3>
                 <span>{item.category} • {item.date}</span>
             </div>
             <div className="right">
-                <p>₱{item.amount}</p>
-                <button onClick={() => deleteItem(item.id)}>X</button>
+                <h3>₱{item.amount}</h3>
+                <button onClick={() => deleteItem(item.id)}><i className='fa-solid fa-trash'></i>Delete</button>
             </div>
         </div>
     )
 
     return (
         <>
-            <div className="chips">
-                <button onClick={() => showAll()}>All</button>
-                <button onClick={() => showExpenses()}>Expenses</button>
-                <button onClick={() => showIncome()}>Income</button>
-            </div>
-            <div className="badges">
-                {loading ? 'Loading...' : badgesHTML}
+            <div className="transactions">
+                <h2>Transactions</h2>
+                <div className="filters">
+                    <button onClick={() => showAll()}>All</button>
+                    <button onClick={() => showExpenses()}>Expenses</button>
+                    <button onClick={() => showIncome()}>Income</button>
+                </div>
+                <div className="badges">
+                    {loading ? 'Loading...' : badgesHTML}
+                </div>
             </div>
         </>
     )

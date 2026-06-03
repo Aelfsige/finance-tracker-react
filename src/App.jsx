@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, NavLink, useParams } from 'react-router-dom'
 import TransactionPage from './components/TransactionPage'
 import DashboardPage from './components/DashboardPage'
 import RecordPage from './components/RecordPage'
@@ -7,26 +7,26 @@ import './App.css'
 
 function App() {
   const navList = [
-    { icon: '🏠', name: 'Dashboard', link: '/' },
-    { icon: '📜', name: 'Record', link: '/record' },
-    { icon: '💸', name: 'Transaction', link: '/transaction' },
+    { icon: 'house', name: 'Dashboard', link: '/' },
+    { icon: 'file-pen', name: 'Record', link: '/record' },
+    { icon: 'receipt', name: 'Transaction', link: '/transaction' },
   ]
 
+  const activeTab = ({ isActive }) => ({
+    borderRadius: isActive ? "50px" : "none",
+    backgroundColor: isActive ? "rgba(0,255,0,0.2)" : "rgba(0,0,0,0)",
+    color: isActive ? "green" : "black"
+  })
+
   const navItems = navList.map(item =>
-    <Link to={item.link}>
-      {item.icon}
+    <NavLink to={item.link} style={activeTab}>
+      <i className={`fa-solid fa-${item.icon}`}></i>
       <p>{item.name}</p>
-    </Link>
+    </NavLink>
   )
 
   function Home() {
-    return (
-      <>
-        <h1>Good day!</h1>
-        <hr />
-        <DashboardPage />
-      </>
-    )
+    return <DashboardPage />
   }
 
   function Record() {

@@ -3,7 +3,7 @@ import { Pie } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-function PieChart({ category, label, amount, backgroundColor, borderColor, chartTitle })
+function PieChart({ category, label, amount, backgroundColor, borderColor, chartTitle, chartClass })
 {
     const spendings = {
         labels: category,
@@ -19,7 +19,7 @@ function PieChart({ category, label, amount, backgroundColor, borderColor, chart
     }
 
     return (
-        <div className="spending-chart">
+        <div className={chartClass}>
             <h4>{chartTitle}</h4>
             <Pie data={spendings}/>
         </div>
